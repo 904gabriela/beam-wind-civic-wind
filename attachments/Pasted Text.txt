@@ -1,0 +1,2723 @@
+NEXUS — MASTER DEVELOPMENT SPECIFICATION
+
+ROLE
+
+You are the primary software architect and developer for Nexus, my personal, private AI roleplay and storytelling application.
+
+Your job is not simply to make a UI that resembles an AI chat application.
+
+You are building a complete story-management and context-management engine whose purpose is to make long-form AI roleplay feel coherent, persistent, intelligent, and easy to use.
+
+The central philosophy of Nexus is:
+
+The user should not have to manually manage the AI’s context. Nexus should manage it for them.
+
+The LLM should be the renderer of the story.
+
+Nexus itself should be responsible for:
+
+* characters
+* personas
+* worlds
+* lore
+* relationships
+* memories
+* story state
+* context retrieval
+* prompt construction
+* branching
+* continuity
+* generation styles
+* automatic discovery of characters
+* automatic memory creation
+* long-term story persistence
+
+The application is for one user and private/local use.
+
+Do NOT build Nexus as a social platform.
+
+⸻
+
+1. EXISTING PROJECT
+
+Nexus already exists as a codebase.
+
+The current project uses:
+
+* React 19
+* TypeScript
+* Vite
+* Playwright
+
+There are already existing routes/features around:
+
+* Characters
+* Personas
+* Stories
+* Lorebooks
+* Memories
+* Media
+* Import/Export
+* Search
+* Settings
+* Chat
+
+There are also existing AI-related modules, including concepts/modules around:
+
+* OpenAI-compatible/Ollama LAN LLM communication
+* image generation
+* prompt building
+* automatic memory
+* summarization
+
+Do NOT throw away the existing project blindly.
+
+First inspect the entire repository and understand:
+
+1. current architecture
+2. existing components
+3. existing routes
+4. current data structures
+5. existing database/storage layer
+6. existing Ollama implementation
+7. existing prompt builder
+8. existing memory implementation
+9. existing import/export functionality
+10. existing chat implementation
+11. existing tests
+
+Then determine what should be:
+
+* preserved
+* refactored
+* extended
+* replaced
+
+Do not create duplicate systems when an existing system can be upgraded.
+
+⸻
+
+2. WHAT NEXUS IS
+
+Nexus is a personal AI storytelling environment.
+
+It should combine ideas from applications such as:
+
+* Tipsy-style AI roleplay
+* SillyTavern-style character/world importing
+* branching chat systems
+* persistent story memory
+* FictionLab’s Memory Matrix concept
+* local LLM applications
+
+However:
+
+Nexus is NOT a copy of any of them.
+
+Take the useful concepts and build an integrated system around them.
+
+The most important difference is that Nexus should not feel like a collection of disconnected modules.
+
+For example, I do NOT want:
+
+Character → completely separate object
+
+Lorebook → completely separate object
+
+Persona → completely separate object
+
+Memory → completely separate object
+
+Chat → completely separate object
+
+Instead, everything should belong to the same Story/Scenario ecosystem.
+
+⸻
+
+3. CORE NEXUS STRUCTURE
+
+The conceptual structure should be:
+
+NEXUS
+│
+├── Story / Scenario
+│   │
+│   ├── Characters
+│   ├── User Persona
+│   ├── World
+│   ├── Lore
+│   ├── Relationships
+│   ├── Story State
+│   ├── Memory Matrix
+│   ├── Chat
+│   └── Generation Profile
+│
+├── Context Engine
+│   ├── Character Retrieval
+│   ├── Lore Retrieval
+│   ├── Memory Retrieval
+│   ├── Relationship Retrieval
+│   ├── Entity Detection
+│   ├── Context Ranking
+│   └── Token Budgeting
+│
+├── Memory Engine
+│   ├── Event Extraction
+│   ├── Character Extraction
+│   ├── Fact Extraction
+│   ├── Relationship Extraction
+│   ├── Importance Scoring
+│   ├── Confidence Scoring
+│   ├── Deduplication
+│   └── Memory Consolidation
+│
+├── Prompt Engine
+│   ├── Presets
+│   ├── Style Modifiers
+│   ├── System Instructions
+│   ├── Character Instructions
+│   ├── Persona
+│   ├── Lore
+│   ├── Memories
+│   ├── Story State
+│   └── Prompt Assembly
+│
+├── Chat Engine
+│   ├── Message Tree
+│   ├── Branching
+│   ├── Regeneration
+│   ├── Editing
+│   └── Streaming
+│
+└── LLM Engine
+    ├── Ollama
+    ├── OpenAI-Compatible
+    └── Future Providers
+
+These should be actual software boundaries, not merely conceptual names.
+
+⸻
+
+4. SINGLE-USER / LOCAL-FIRST REQUIREMENT
+
+Nexus is designed for me personally.
+
+Do NOT add:
+
+* user registration
+* login
+* social profiles
+* public profiles
+* community
+* discovery feed
+* followers
+* likes
+* comments
+* subscriptions
+* gems/credits
+* monetization
+* public publishing
+* analytics dashboards
+* engagement tracking
+* social notifications
+* recommendation algorithms
+* unnecessary cloud infrastructure
+
+The application should work locally.
+
+The primary AI provider is Ollama.
+
+Architecture should nevertheless allow other providers later.
+
+⸻
+
+5. STORY-FIRST ARCHITECTURE
+
+The most important architectural change is that Nexus should be story-first.
+
+A Story/Scenario should act as the parent container for everything relevant to a roleplay.
+
+For example:
+
+My Hero Academia — Reiko & Bakugo
+│
+├── Reiko
+├── Katsuki Bakugo
+├── Izuku Midoriya
+├── Shoto Todoroki
+├── Aizawa
+│
+├── Reiko Persona
+│
+├── My Hero Academia World
+│
+├── Relationships
+│   ├── Reiko ↔ Bakugo
+│   ├── Reiko ↔ Midoriya
+│   └── Reiko ↔ Todoroki
+│
+├── Memory Matrix
+│
+├── Story State
+│
+└── Chat
+
+The user should not have to manually connect every component.
+
+If a character is used in a story, Nexus should know that character belongs to the story.
+
+If a lore entry becomes relevant to a story, Nexus should know that.
+
+If something happens in chat, Nexus should be able to connect it to:
+
+* characters
+* relationships
+* locations
+* objects
+* secrets
+* promises
+* goals
+* events
+* story state
+
+⸻
+
+6. CHARACTERS
+
+Characters need to support detailed AI roleplay definitions.
+
+A character can contain:
+
+* name
+* aliases
+* description
+* personality
+* appearance
+* background
+* history
+* behavior
+* speech style
+* likes
+* dislikes
+* fears
+* goals
+* relationships
+* secrets
+* abilities
+* scenario information
+* example dialogue
+* system instructions
+* creator notes
+* tags
+* images
+* voice configuration
+* metadata
+* source/import information
+
+But do NOT assume that every character needs a massive character card.
+
+Characters can exist at different levels.
+
+Character states
+
+Full Character
+
+A manually created/imported character with a detailed definition.
+
+Basic Character
+
+Automatically discovered from a story.
+
+Example:
+
+Name: Aizawa Shota
+Status:
+Automatically discovered
+Known facts:
+- Teacher at U.A.
+- Present in the current storyline.
+Sources:
+Chat message #104
+Confidence:
+0.97
+
+Do not invent dozens of details.
+
+Only store information established by the story.
+
+Over time, the basic character can become richer as more information is observed.
+
+⸻
+
+7. AUTOMATIC CHARACTER DISCOVERY
+
+This is a major feature.
+
+Suppose the roleplay is currently about:
+
+Reiko
+Bakugo
+
+Then the AI writes:
+
+Aizawa walked into the room.
+
+If there is no Aizawa character card, Nexus should detect:
+
+Entity:
+Aizawa
+
+Search existing characters.
+
+If none exists:
+
+1. create a minimal character entity
+2. associate it with the current Story
+3. record the source message
+4. record only established information
+5. assign confidence
+6. allow future information to enrich the character
+
+The system must NOT immediately hallucinate a complete character profile.
+
+This is an important distinction:
+
+DISCOVERED CHARACTER
+        ↓
+Observed facts
+        ↓
+Repeated information
+        ↓
+Character knowledge
+        ↓
+Optional full character profile
+
+⸻
+
+8. PERSONAS
+
+A Persona represents the user’s role in the story.
+
+A Persona may contain:
+
+* name
+* appearance
+* personality
+* background
+* behavior
+* speech style
+* relationships
+* preferences
+* identity information
+* abilities
+* history
+* relevant facts
+
+A Persona should not be treated as an isolated object.
+
+When a Persona is assigned to a Story, it becomes part of that Story’s context.
+
+The same Persona can be used in multiple stories.
+
+⸻
+
+9. WORLD / LORE
+
+Lore should support large worldbuilding systems.
+
+Examples:
+
+* My Hero Academia world
+* Harry Potter world
+* original fantasy world
+* sci-fi universe
+* custom universe
+* fanfiction canon
+
+Lore entries should support:
+
+* title
+* content
+* keywords
+* aliases
+* categories
+* priority
+* importance
+* source
+* story association
+* activation rules
+* token budget
+* enabled/disabled state
+
+But lore should NOT simply be dumped into every prompt.
+
+Nexus should retrieve relevant lore dynamically.
+
+⸻
+
+10. LORE VS MEMORY
+
+These are fundamentally different.
+
+Lore
+
+Static information.
+
+Examples:
+
+U.A. High School is located in Japan.
+Bakugo's Quirk is Explosion.
+The world contains professional heroes.
+
+Memory
+
+Things that happened during the current story.
+
+Examples:
+
+Reiko kissed Bakugo.
+Reiko told Bakugo a secret.
+Bakugo promised not to tell anyone.
+Reiko and Bakugo had an argument.
+Bakugo later apologized.
+
+Lore describes the world.
+
+Memory describes what happened.
+
+Do not merge them into one undifferentiated database.
+
+However, both should feed the same Context Engine.
+
+⸻
+
+11. MEMORY MATRIX
+
+Nexus should implement a Memory Matrix inspired by the behavior I like in FictionLab.
+
+The Memory Matrix should be much more intelligent than a simple summary field.
+
+Memories should be structured.
+
+Possible memory types:
+
+Character
+Relationship
+Event
+Fact
+Location
+Object
+Promise
+Secret
+Emotional State
+Possession
+Goal
+Conflict
+Consequence
+Decision
+Discovery
+
+A memory might look conceptually like:
+
+{
+  "type": "relationship_event",
+  "characters": ["reiko", "bakugo"],
+  "event": "Reiko kissed Bakugo and revealed a personal secret.",
+  "importance": 0.94,
+  "relationshipImpact": 0.96,
+  "confidence": 0.98,
+  "sourceMessageId": "...",
+  "storyId": "...",
+  "createdAt": "...",
+  "pinned": false
+}
+
+The actual database schema can differ.
+
+The important part is preserving the semantics.
+
+⸻
+
+12. AUTOMATIC MEMORY EXTRACTION
+
+Memory extraction should happen automatically.
+
+The user should simply roleplay.
+
+After a turn:
+
+USER MESSAGE
+      +
+AI RESPONSE
+      ↓
+MEMORY ANALYZER
+      ↓
+WHAT CHANGED?
+      ↓
+MEMORY CANDIDATES
+      ↓
+IMPORTANCE
+      ↓
+CONFIDENCE
+      ↓
+DEDUPLICATION
+      ↓
+MEMORY MATRIX
+
+The user should not have to manually write summaries after every scene.
+
+⸻
+
+13. WHAT SHOULD BECOME A MEMORY?
+
+The system should detect meaningful changes.
+
+For example:
+
+User:
+
+Reiko leaned forward and kissed Bakugo before whispering, “I never told anyone this, but…”
+
+AI:
+
+Bakugo froze…
+
+The system should recognize that something important happened.
+
+Potential memory:
+
+Event:
+Reiko kissed Bakugo.
+Event:
+Reiko revealed a personal secret to Bakugo.
+Relationship impact:
+High.
+Emotional significance:
+High.
+
+Another example:
+
+Reiko dropped her phone.
+
+This should probably NOT become a permanent memory.
+
+Another:
+
+Reiko moved to Japan permanently.
+
+This should probably become a memory/fact.
+
+Another:
+
+Bakugo promised Reiko he would protect her.
+
+This should become a promise/relationship memory.
+
+⸻
+
+14. MEMORY CONFIDENCE
+
+Do NOT blindly commit everything the AI sees.
+
+This is extremely important.
+
+Use confidence levels.
+
+High confidence
+
+Clearly stated or directly observed.
+
+Automatically save.
+
+Medium confidence
+
+Reasonably supported but potentially ambiguous.
+
+Save as editable/soft memory.
+
+Low confidence
+
+Inference, speculation, joke, metaphor, uncertain interpretation.
+
+Do not permanently commit automatically.
+
+Example:
+
+Observed:
+Bakugo looked away.
+Inference:
+Bakugo was embarrassed.
+
+The first is an observation.
+
+The second is an interpretation.
+
+Do not treat them equally.
+
+⸻
+
+15. MEMORY SOURCES
+
+Every automatically generated memory should know where it came from.
+
+For example:
+
+Source:
+Chat #847
+Message:
+847
+Characters:
+Reiko
+Bakugo
+Created:
+2026-09-06
+Confidence:
+0.96
+
+This allows debugging and prevents mysterious memories.
+
+⸻
+
+16. MEMORY DEDUPLICATION
+
+The system must avoid producing:
+
+Bakugo promised Reiko he would protect her.
+Bakugo made a promise to protect Reiko.
+Bakugo vowed to protect Reiko.
+Bakugo told Reiko he would keep her safe.
+
+as four separate memories.
+
+These should potentially consolidate into one:
+
+Bakugo promised Reiko he would protect her.
+
+Implement semantic deduplication/consolidation.
+
+⸻
+
+17. MEMORY CONSOLIDATION
+
+Memories can evolve.
+
+Example:
+
+Memory 1:
+Reiko and Bakugo argued.
+Memory 2:
+Reiko apologized.
+Memory 3:
+Bakugo accepted the apology.
+
+The system may eventually consolidate this into:
+
+Reiko and Bakugo had an argument but later reconciled.
+
+However, do not destroy source memories unnecessarily.
+
+Preserve provenance.
+
+Think of memories as a knowledge graph rather than disposable summaries.
+
+⸻
+
+18. RELATIONSHIPS
+
+Relationships should be first-class story data.
+
+Example:
+
+Reiko ↔ Bakugo
+Relationship:
+Rivals / Friends / Romantic Tension
+History:
+- Constant arguments
+- Mutual respect developed
+- Recent kiss
+- Secret shared
+- Emotional tension increasing
+Current state:
+Unresolved romantic tension
+Confidence:
+High
+
+Relationships should evolve based on story events.
+
+Do NOT force romance.
+
+Do NOT automatically convert interactions into romance.
+
+The story determines the relationship.
+
+⸻
+
+19. STORY STATE
+
+Nexus should maintain a current Story State.
+
+Example:
+
+Current location:
+U.A. dormitory
+Current scene:
+Common room
+Present characters:
+Reiko
+Bakugo
+Kirishima
+Time:
+Friday evening
+Current goals:
+Reiko wants to talk privately with Bakugo.
+Active tension:
+Bakugo knows Reiko's secret.
+Recent events:
+Reiko kissed Bakugo.
+Emotional state:
+Unresolved tension.
+
+Story State should be dynamically maintained.
+
+It should not replace the actual chat.
+
+It is a compact representation of the current situation.
+
+⸻
+
+20. CONTEXT ENGINE
+
+This is one of the most important systems in Nexus.
+
+Do not simply send:
+
+system prompt
++
+character card
++
+persona
++
+entire lorebook
++
+entire memory database
++
+entire conversation
+
+to the LLM.
+
+That will become inefficient and eventually impossible.
+
+Instead:
+
+Current User Message
+        ↓
+Entity Detection
+        ↓
+Relevant Characters
+        ↓
+Relevant Relationships
+        ↓
+Relevant Lore
+        ↓
+Relevant Memories
+        ↓
+Story State
+        ↓
+Recent Conversation
+        ↓
+Context Ranking
+        ↓
+Token Budget
+        ↓
+Prompt Builder
+        ↓
+LLM
+
+⸻
+
+21. CONTEXT RELEVANCE
+
+Suppose there are 10,000 memories.
+
+The current message is about:
+
+Bakugo
+U.A.
+a previous promise
+
+Nexus should retrieve memories related to:
+
+* Bakugo
+* U.A.
+* the promise
+* relevant relationships
+* current scene
+
+It should NOT load unrelated memories.
+
+Use:
+
+* entity matching
+* keywords
+* relationships
+* recency
+* importance
+* semantic similarity where appropriate
+* story state
+* pinned memories
+
+to rank context.
+
+⸻
+
+22. TOKEN BUDGETING
+
+The Context Engine must have a token budget.
+
+Example:
+
+System:
+1500
+Character:
+2500
+Persona:
+1000
+Relevant Lore:
+3000
+Memory:
+3000
+Story State:
+1000
+Recent Chat:
+12000
+Current User:
+500
+Total:
+24500
+
+The actual values should be configurable.
+
+Never exceed the model’s context limit.
+
+The Context Engine should dynamically prioritize information.
+
+⸻
+
+23. PROMPT ENGINE
+
+Prompt construction must be its own subsystem.
+
+Do NOT construct the final prompt directly inside the chat UI.
+
+Use something conceptually like:
+
+PromptEngine
+    ↓
+PromptBuilder
+    ↓
+PromptBlocks[]
+    ↓
+Context Engine
+    ↓
+Final Prompt
+
+Possible blocks:
+
+System Instructions
+Generation Style
+Character
+Persona
+Scenario
+World
+Lore
+Relationships
+Memory Matrix
+Story State
+Example Dialogue
+Recent Conversation
+Author Notes
+Current User Message
+
+The exact ordering should be configurable.
+
+⸻
+
+24. GENERATION PRESETS
+
+One of the biggest UX goals is to make generation settings understandable.
+
+I do NOT want users to have to understand:
+
+* top-p
+* top-k
+* min-p
+* frequency penalty
+* presence penalty
+* repetition penalty
+* seed
+* stop sequences
+* advanced sampling parameters
+
+just to get a different writing style.
+
+Instead, Nexus should provide simple presets.
+
+Examples:
+
+Balanced
+Detailed
+Slow Burn
+Cinematic
+Romantic
+Dramatic
+Action
+Comedy
+Dark
+Horror
+Intimate
+Fast-Paced
+
+There should also be:
+
+Custom
+
+⸻
+
+25. PRESET BEHAVIOR
+
+A preset is not just a temperature value.
+
+It should contain:
+
+1. generation parameters
+2. prompt instructions
+3. writing style instructions
+4. behavioral instructions
+
+Example:
+
+Slow Burn
+
+Generation:
+
+Temperature: ~0.85
+Top P: ~0.95
+
+Prompt instructions:
+
+Develop relationships gradually.
+Do not force romantic progression.
+Allow attraction and emotional intimacy to emerge naturally.
+Preserve established personalities.
+Use subtle body language and dialogue.
+Allow uncertainty and tension.
+Do not resolve emotional conflicts immediately.
+
+Detailed
+
+Instructions:
+
+Use descriptive prose.
+Include environmental detail when relevant.
+Use body language and sensory detail.
+Maintain continuity.
+Avoid repetitive descriptions.
+Do not unnecessarily inflate every response.
+
+The exact parameter values should be editable.
+
+⸻
+
+26. COMPOSABLE PRESETS
+
+Allow styles to be combined.
+
+For example:
+
+Slow Burn
++
+Detailed
++
+Cinematic
+
+or:
+
+Dark
++
+Horror
++
+Cinematic
+
+The user should be able to save the combination as:
+
+My Horror RP
+
+Presets should therefore be composable rather than hard-coded one-off modes.
+
+⸻
+
+27. PRESET EDITOR
+
+Every preset should be editable.
+
+The user should be able to see something understandable like:
+
+Preset: Slow Burn
+Writing Instructions
+────────────────────
+Gradual emotional development.
+No forced romance.
+Subtle tension.
+Preserve personality.
+Generation
+────────────────────
+Temperature     0.85
+Response Length 1200
+Advanced
+────────────────────
+Top P
+Top K
+Min P
+Repeat Penalty
+etc.
+
+The simple instructions should be visible.
+
+Advanced sampling parameters can be hidden under an Advanced section.
+
+⸻
+
+28. CHAT QUICK SETTINGS
+
+The chat screen should be the command center.
+
+The user should not have to leave the chat to change common settings.
+
+Conceptually:
+
+┌─────────────────────────────────────────────┐
+│ Bakugo × Reiko                           ⚙ │
+├─────────────────────────────────────────────┤
+│                                             │
+│                  CHAT                       │
+│                                             │
+│                                             │
+├─────────────────────────────────────────────┤
+│ [Slow Burn ▼] [⚙ Quick Settings]            │
+│                                             │
+│ Type your message...                     ➤  │
+└─────────────────────────────────────────────┘
+
+Preset selector:
+
+GENERATION STYLE
+● Slow Burn
+○ Balanced
+○ Detailed
+○ Cinematic
+○ Romantic
+○ Dramatic
+○ Action
+○ Custom...
+Edit Preset
+
+Quick settings:
+
+CHAT SETTINGS
+Generation
+Preset             Slow Burn
+Temperature        0.85
+Response Length    1200
+Memory
+Memory Matrix      ON
+Auto Memories      ON
+Auto Characters    ON
+Lore Activation    Smart
+Story
+Context Size       24k
+Edit Preset
+Advanced Settings →
+
+The exact UI can be designed appropriately for the existing application.
+
+⸻
+
+29. ADVANCED SETTINGS
+
+Advanced configuration should still exist.
+
+But it belongs in Settings, not in the user’s face during normal roleplay.
+
+Advanced settings can include:
+
+* model
+* provider
+* context size
+* temperature
+* top-p
+* top-k
+* min-p
+* repeat penalty
+* frequency penalty
+* presence penalty
+* seed
+* stop sequences
+* max output tokens
+* reasoning configuration
+* prompt ordering
+* lore scanning
+* memory retrieval
+* memory token budget
+* system prompt
+* provider-specific options
+
+The normal chat experience should remain simple.
+
+⸻
+
+30. MODEL / PROVIDER ARCHITECTURE
+
+The frontend must NOT be tightly coupled to Ollama.
+
+Use an abstraction:
+
+Frontend
+   ↓
+LLMService
+   ↓
+LLMProvider
+   ↓
+OllamaProvider
+
+Later:
+
+LLMProvider
+├── Ollama
+├── OpenAI-Compatible
+└── Other providers
+
+The chat UI should never need to know whether the model is:
+
+* Ollama
+* OpenRouter
+* OpenAI-compatible
+* another provider
+
+It should simply call the LLM service.
+
+⸻
+
+31. OLLAMA
+
+Ollama is the primary provider.
+
+The application should support:
+
+* model selection
+* model discovery
+* streaming
+* temperature
+* context size
+* max output
+* relevant model parameters
+* connection testing
+* errors
+* cancellation
+
+Keep the Ollama implementation isolated behind the provider interface.
+
+⸻
+
+32. STREAMING
+
+Responses should stream token-by-token.
+
+The user should see the response being generated naturally.
+
+The architecture should also allow generation state to survive temporary client disconnects if practical.
+
+For example:
+
+Generation starts
+       ↓
+Server owns generation
+       ↓
+WebSocket streams tokens
+       ↓
+Client disconnects
+       ↓
+Generation continues
+       ↓
+Client reconnects
+       ↓
+Completed generation becomes available
+
+This is especially useful when accessing Nexus from another device on the local network.
+
+⸻
+
+33. CHAT BRANCHING
+
+Chats should be trees, not simple linear logs.
+
+Each message should have a parent.
+
+Conceptually:
+
+A
+│
+B
+├── C
+│   └── D
+│
+└── C2
+    └── D2
+
+If the user:
+
+* edits a message
+* regenerates a response
+* chooses another response
+* forks a conversation
+
+the original branch should remain.
+
+Do not overwrite history.
+
+A useful model:
+
+Message
+- id
+- chatId
+- parentId
+- role
+- content
+- createdAt
+
+And:
+
+Chat
+- rootMessageId
+- activeLeafId
+- canonLeafId
+
+The visible conversation is reconstructed by walking from the active leaf to the root.
+
+⸻
+
+34. REGENERATION
+
+If the user regenerates an AI response:
+
+Original response
+       ↓
+New response
+
+create a sibling branch.
+
+Do not delete the old response.
+
+The user should be able to switch between them.
+
+⸻
+
+35. EDITING
+
+If the user edits an earlier message:
+
+Do not mutate the entire conversation destructively.
+
+Create a new branch from that point.
+
+This preserves the original timeline.
+
+⸻
+
+36. STORY MAP
+
+Eventually provide a visual way to see branching.
+
+Conceptually:
+
+                    ┌── Response A ── ...
+User message ───────┤
+                    └── Response B ── ...
+                              │
+                              ├── ...
+                              └── ...
+
+The user should be able to navigate branches.
+
+This does not need to be the first implementation if it delays the core engine, but the data architecture must support it from the beginning.
+
+⸻
+
+37. AUTOMATIC MEMORY SHOULD BE ASYNCHRONOUS
+
+Memory extraction should not unnecessarily delay the next response.
+
+Ideal flow:
+
+User sends message
+       ↓
+Context Engine
+       ↓
+LLM generation
+       ↓
+Response shown
+       ↓
+Background Memory Analyzer
+       ↓
+Memory updates
+
+The story should remain responsive.
+
+Use a smaller/local model for memory analysis if appropriate.
+
+Because Ollama is local, Nexus can potentially use:
+
+Primary model:
+Large roleplay model
+Memory model:
+Smaller faster model
+
+This should be configurable.
+
+⸻
+
+38. MEMORY ANALYZER OUTPUT
+
+The memory analyzer should return structured data.
+
+Conceptually:
+
+{
+  "memories": [
+    {
+      "type": "event",
+      "subjects": ["reiko", "bakugo"],
+      "content": "Reiko kissed Bakugo.",
+      "importance": 0.94,
+      "confidence": 0.99,
+      "relationshipImpact": 0.92
+    }
+  ],
+  "characters": [],
+  "relationshipUpdates": [],
+  "storyStateUpdates": []
+}
+
+Validate the model output strictly.
+
+Never blindly trust malformed JSON.
+
+⸻
+
+39. MEMORY NOTIFICATION
+
+Automatic memory should normally happen silently.
+
+Optionally provide a subtle notification:
+
+Memory updated
+Reiko revealed a secret to Bakugo.
+Relationship impact: High
+[View] [Edit] [Dismiss]
+
+Do not interrupt roleplay constantly.
+
+The user can inspect the Memory Matrix later.
+
+⸻
+
+40. MEMORY MATRIX UI
+
+The Memory Matrix should make memories understandable.
+
+Each memory should display things like:
+
+Reiko revealed a personal secret to Bakugo.
+Type:
+Relationship Event
+Importance:
+High
+Confidence:
+96%
+Characters:
+Reiko
+Bakugo
+Source:
+Chat #847
+[Edit] [Pin] [Delete]
+
+Allow:
+
+* search
+* filtering
+* sorting
+* pinning
+* editing
+* deleting
+* viewing source
+* viewing related memories
+
+⸻
+
+41. PINNED MEMORIES
+
+Pinned memories should receive special treatment.
+
+A pinned memory should be strongly prioritized during retrieval.
+
+Examples:
+
+Bakugo knows Reiko's secret.
+Reiko promised not to tell anyone.
+Their relationship changed after the incident.
+
+Pinned does NOT mean it must literally be included in every prompt regardless of token budget.
+
+It means it receives extremely high retrieval priority.
+
+⸻
+
+42. CONTINUITY
+
+Nexus should prioritize continuity.
+
+The AI should know:
+
+* who is present
+* where they are
+* what happened recently
+* what happened previously
+* what relationships exist
+* what secrets exist
+* what promises exist
+* what goals exist
+* what objects matter
+* what has changed
+
+The system should not rely solely on the LLM’s raw context window to remember these things.
+
+⸻
+
+43. ENTITY EXTRACTION
+
+The Context Engine should identify entities in the current conversation.
+
+Potential entities:
+
+Characters
+Locations
+Organizations
+Objects
+Events
+Relationships
+Topics
+Secrets
+Promises
+Goals
+
+These entities should drive retrieval.
+
+For example:
+
+"Bakugo took Reiko back to the dorm."
+Detected:
+Character:
+Bakugo
+Character:
+Reiko
+Location:
+Dorm
+Potential event:
+Travel / movement
+
+⸻
+
+44. OBSERVATION VS INFERENCE
+
+This distinction should exist in the data model.
+
+Example:
+
+Observation:
+Bakugo looked away.
+Inference:
+Bakugo was embarrassed.
+
+The first can be stored confidently.
+
+The second should have lower confidence unless explicitly confirmed.
+
+This is critical for preventing memory corruption.
+
+⸻
+
+45. MEMORY CORRECTION
+
+If the AI creates a wrong memory, the user must be able to edit/delete it.
+
+If the user changes a memory, the corrected version becomes authoritative.
+
+The system should record:
+
+created automatically
+edited manually
+pinned manually
+deleted manually
+
+Manual user edits should have higher authority than automatic extraction.
+
+⸻
+
+46. IMPORT / EXPORT
+
+Nexus should support importing existing roleplay resources.
+
+Important formats include SillyTavern-compatible concepts such as:
+
+* character cards
+* lorebooks
+* personas
+* chats where practical
+
+But imported objects should be transformed into Nexus’s internal story architecture.
+
+Do not simply treat imported files as foreign objects forever.
+
+For example:
+
+Imported Character
+        ↓
+Nexus Character
+        ↓
+Attach to Story
+        ↓
+Context Engine
+
+⸻
+
+47. CHARACTER CARD COMPATIBILITY
+
+Preserve compatibility with common character-card structures.
+
+When importing:
+
+* preserve original information
+* preserve example dialogue
+* preserve personality
+* preserve scenario
+* preserve system prompts where appropriate
+* preserve metadata
+* preserve images when available
+
+But normalize the information internally.
+
+⸻
+
+48. MEDIA
+
+Nexus should retain support for media.
+
+Potential features:
+
+* character images
+* generated images
+* image attachments
+* story gallery
+* character gallery
+* optional TTS/audio architecture
+
+Do not let media architecture interfere with the core story engine.
+
+⸻
+
+49. UI PHILOSOPHY
+
+Nexus should feel:
+
+* clean
+* modern
+* focused
+* personal
+* simple
+* powerful when needed
+
+Avoid overwhelming the user with technical settings.
+
+The main experience should be:
+
+Choose Story
+      ↓
+Choose Character(s)
+      ↓
+Choose Persona
+      ↓
+Choose Generation Style
+      ↓
+Chat
+
+The complexity should exist underneath.
+
+⸻
+
+50. IMPORTANT UX PRINCIPLE
+
+The user should not have to understand:
+
+What is a lorebook?
+How does context retrieval work?
+What memory should I save?
+Which character needs this information?
+Which prompt block should I edit?
+Which token budget should I use?
+
+Nexus should make intelligent decisions automatically.
+
+The user should mostly be able to:
+
+Create story
+Add characters
+Chat
+
+and the system manages the rest.
+
+⸻
+
+51. STORY CREATION FLOW
+
+A new Story should be simple.
+
+Example:
+
+Create Story
+Name:
+My Hero Academia
+Description:
+Canon MHA roleplay with my original character.
+Characters:
++ Add Character
+Persona:
+Reiko
+World:
+My Hero Academia
+Generation Style:
+Slow Burn
+Memory:
+Automatic
+Auto Characters:
+ON
+Auto Memories:
+ON
+
+Create.
+
+The Story is now ready.
+
+⸻
+
+52. CHAT HEADER
+
+The chat header should show enough information without becoming cluttered.
+
+Example:
+
+My Hero Academia
+Bakugo × Reiko
+Slow Burn ▼
+⚙
+
+Potentially show:
+
+Memory: ON
+
+but do not overload the header.
+
+⸻
+
+53. QUICK SETTINGS PANEL
+
+Quick settings should include only common controls.
+
+For example:
+
+Generation
+Preset:
+Slow Burn
+Temperature:
+0.85
+Response Length:
+1200
+Memory
+Memory Matrix:
+ON
+Auto Memories:
+ON
+Auto Characters:
+ON
+Lore:
+Smart
+Context:
+24k
+[Edit Preset]
+[Advanced Settings]
+
+⸻
+
+54. SETTINGS
+
+Settings should contain advanced configuration.
+
+Organize them clearly.
+
+Possible categories:
+
+General
+AI Providers
+Models
+Generation
+Memory
+Context
+Lore
+Characters
+Import/Export
+Storage
+Network
+Appearance
+Advanced
+
+Do not place everything on one giant settings page.
+
+⸻
+
+55. NETWORK ACCESS
+
+By default Nexus should remain local.
+
+Preferred default:
+
+127.0.0.1
+
+Provide an optional LAN mode for accessing Nexus from another device on the same network.
+
+For example:
+
+LAN Access:
+OFF
+Enable LAN Access
+
+If enabled:
+
+* bind appropriately
+* display local network address
+* use basic access protection
+* validate requests
+* avoid exposing unnecessary services
+
+The system should not require cloud hosting.
+
+⸻
+
+56. SECURITY
+
+Even though this is a personal application, do not create obviously unsafe architecture.
+
+Do not expose:
+
+* arbitrary filesystem access
+* raw database operations to the browser
+* provider secrets unnecessarily
+* arbitrary server commands
+
+Keep sensitive operations server-side where appropriate.
+
+⸻
+
+57. DATA STORAGE
+
+Use a local persistent database/storage architecture appropriate for a single-user application.
+
+SQLite is preferred if the current project architecture supports it.
+
+Data should survive application restarts.
+
+Important entities should have stable IDs.
+
+⸻
+
+58. SUGGESTED DATA MODEL
+
+Design the actual schema based on the existing project, but conceptually we need entities such as:
+
+Story
+Character
+Persona
+World
+LoreEntry
+Relationship
+Memory
+StoryState
+Chat
+Message
+GenerationPreset
+Provider
+ModelConfiguration
+Media
+
+Potential relationships:
+
+Story
+ ├── characters
+ ├── persona
+ ├── world
+ ├── lore
+ ├── relationships
+ ├── memories
+ ├── storyState
+ └── chats
+
+⸻
+
+59. MEMORY DATA MODEL
+
+A Memory should contain enough information for intelligent retrieval.
+
+Potential fields:
+
+id
+storyId
+type
+content
+summary
+subjects
+characterIds
+locationIds
+importance
+confidence
+relationshipImpact
+emotionalSignificance
+sourceMessageId
+sourceChatId
+createdAt
+updatedAt
+lastRetrievedAt
+retrievalCount
+pinned
+manuallyEdited
+status
+
+Do not blindly copy these fields if the existing database has a better architecture.
+
+⸻
+
+60. CHARACTER KNOWLEDGE
+
+A character’s knowledge should not necessarily be identical to the global story knowledge.
+
+For example:
+
+Reiko knows:
+Secret A
+Bakugo knows:
+Secret A
+Kirishima does NOT know:
+Secret A
+
+This can become important for roleplay.
+
+Eventually Nexus should support knowledge boundaries.
+
+Do not make every character automatically know every memory.
+
+⸻
+
+61. SECRETS
+
+Secrets should be first-class data.
+
+Example:
+
+Secret:
+Reiko's hidden past
+Known by:
+Reiko
+Bakugo
+Unknown to:
+Kirishima
+Midoriya
+Todoroki
+
+This prevents accidental information leakage in roleplay.
+
+⸻
+
+62. FUTURE KNOWLEDGE GRAPH
+
+Architect the system so that eventually:
+
+Characters
+    ↕
+Relationships
+    ↕
+Events
+    ↕
+Locations
+    ↕
+Objects
+    ↕
+Secrets
+    ↕
+Memories
+
+can form a connected story graph.
+
+Do not necessarily implement the entire graph immediately.
+
+But do not build an architecture that makes it impossible later.
+
+⸻
+
+63. ERROR HANDLING
+
+AI applications fail in many ways.
+
+Handle:
+
+* Ollama unavailable
+* model not found
+* connection timeout
+* generation interrupted
+* malformed structured output
+* context too large
+* invalid imported character card
+* corrupted memory
+* failed database operation
+* WebSocket disconnect
+* invalid provider configuration
+
+Errors should be understandable.
+
+Avoid showing raw stack traces to normal users.
+
+⸻
+
+64. TESTING
+
+Use the existing Playwright setup.
+
+Add meaningful tests for:
+
+Chat
+
+* sending messages
+* streaming
+* regeneration
+* branching
+* editing
+
+Memory
+
+* extraction
+* confidence
+* deduplication
+* deletion
+* pinning
+* retrieval
+
+Characters
+
+* manual creation
+* automatic discovery
+* enrichment
+
+Context
+
+* relevant lore retrieval
+* relevant memory retrieval
+* token budgeting
+* context ordering
+
+Presets
+
+* selecting
+* editing
+* combining
+* saving
+
+Import
+
+* character cards
+* lorebooks
+* personas
+
+Do not only test UI snapshots.
+
+Test actual logic.
+
+⸻
+
+65. DEVELOPMENT STRATEGY
+
+Do NOT try to implement every feature simultaneously.
+
+Work in phases.
+
+PHASE 1 — Understand Existing Nexus
+
+Before changing code:
+
+1. inspect repository
+2. map architecture
+3. identify current data models
+4. identify existing AI code
+5. identify existing chat system
+6. identify current memory implementation
+7. identify storage
+8. identify existing tests
+9. identify technical debt
+
+Produce a concise architecture report for yourself before implementation.
+
+Then begin work.
+
+⸻
+
+PHASE 2 — Story Architecture
+
+Implement/refactor:
+
+Story
+Character
+Persona
+World
+Relationship
+StoryState
+
+Everything should be connectable to a Story.
+
+⸻
+
+PHASE 3 — Unified Context Engine
+
+Build:
+
+ContextEngine
+
+It should retrieve:
+
+* characters
+* persona
+* lore
+* relationships
+* memories
+* story state
+* conversation
+
+based on relevance.
+
+⸻
+
+PHASE 4 — Prompt Engine
+
+Build:
+
+PromptEngine
+PromptBuilder
+PromptBlock
+GenerationPreset
+
+Separate prompt assembly from UI.
+
+⸻
+
+PHASE 5 — Presets
+
+Implement:
+
+* Balanced
+* Detailed
+* Slow Burn
+* Cinematic
+* Romantic
+* Dramatic
+* Action
+* Comedy
+* Dark
+* Horror
+* Intimate
+* Fast-Paced
+* Custom
+
+Allow editing and composition.
+
+⸻
+
+PHASE 6 — Memory Matrix
+
+Implement:
+
+* automatic extraction
+* structured memories
+* confidence
+* importance
+* source tracking
+* deduplication
+* consolidation
+* pinning
+* editing
+* deletion
+* retrieval
+
+⸻
+
+PHASE 7 — Automatic Character Discovery
+
+Implement:
+
+Unknown entity
+      ↓
+Detect
+      ↓
+Search existing characters
+      ↓
+Create minimal character
+      ↓
+Store observed facts
+      ↓
+Enrich over time
+
+⸻
+
+PHASE 8 — Story Continuity
+
+Implement:
+
+* relationships
+* story state
+* secrets
+* promises
+* goals
+* consequences
+* knowledge boundaries
+
+⸻
+
+PHASE 9 — Chat Branching
+
+Implement:
+
+* message tree
+* regeneration branches
+* edited-message branches
+* active branch
+* branch navigation
+* Story Map
+
+⸻
+
+PHASE 10 — UX
+
+After the underlying systems are stable:
+
+Implement:
+
+* quick settings
+* preset selector
+* Memory Matrix interface
+* Story overview
+* character management
+* world management
+* clean settings
+
+⸻
+
+66. DO NOT OVERENGINEER
+
+Nexus is powerful internally but should remain simple externally.
+
+Do NOT introduce:
+
+* microservices
+* Kubernetes
+* unnecessary cloud databases
+* authentication systems
+* complicated distributed architecture
+* unnecessary message queues
+* dozens of abstractions with no purpose
+
+This is a personal application.
+
+Prefer:
+
+Simple
+Local
+Fast
+Reliable
+Maintainable
+
+⸻
+
+67. IMPORTANT ARCHITECTURAL RULE
+
+Do not solve a problem by putting more logic into the React components.
+
+Business logic should live in appropriate services/modules.
+
+For example:
+
+React UI
+   ↓
+ChatService
+   ↓
+ContextEngine
+   ↓
+MemoryEngine
+   ↓
+PromptEngine
+   ↓
+LLMService
+
+The UI should primarily display state and send user actions.
+
+⸻
+
+68. IMPORTANT MEMORY RULE
+
+Never allow the Memory Engine to become the source of truth for the actual conversation.
+
+The hierarchy is:
+
+CHAT = primary source
+MEMORY = structured derived knowledge
+LORE = static world knowledge
+CHARACTER = structured character knowledge
+STORY STATE = current derived situation
+
+Memories can be regenerated from source information when necessary.
+
+⸻
+
+69. IMPORTANT CONTEXT RULE
+
+The LLM should receive information in a deliberate hierarchy.
+
+Conceptually:
+
+SYSTEM
+↓
+GENERATION STYLE
+↓
+STORY / SCENARIO
+↓
+CHARACTER
+↓
+PERSONA
+↓
+WORLD / LORE
+↓
+RELATIONSHIPS
+↓
+MEMORY
+↓
+STORY STATE
+↓
+RECENT CHAT
+↓
+CURRENT MESSAGE
+
+The exact order should be configurable through the Prompt Engine.
+
+⸻
+
+70. IMPORTANT ROLEPLAY RULE
+
+Nexus should not force story outcomes.
+
+It should preserve character behavior.
+
+For example:
+
+If a character is canonically aggressive, Nexus should not make them suddenly romantic merely because a preset says “Romantic.”
+
+Generation presets control writing style, not fundamental character identity.
+
+Character definitions and story continuity have higher authority.
+
+⸻
+
+71. PRIORITY HIERARCHY
+
+When information conflicts, use a hierarchy approximately like:
+
+Explicit user instruction
+        ↓
+Current story events
+        ↓
+Manually edited/pinned story knowledge
+        ↓
+Character definition
+        ↓
+Established memories
+        ↓
+Lore
+        ↓
+AI inference
+
+Do not allow low-confidence inference to override established facts.
+
+⸻
+
+72. DEBUGGING / PROMPT INSPECTION
+
+Provide a developer/debug mode.
+
+It should allow inspection of:
+
+Final prompt
+Token counts
+Selected memories
+Selected lore
+Selected characters
+Story state
+Preset instructions
+Context ranking
+Memory extraction
+
+This is extremely important for debugging roleplay quality.
+
+Normal users do not need to see it.
+
+⸻
+
+73. LOGGING
+
+Provide useful local logs for developers.
+
+For example:
+
+Generation started
+Model: llama...
+Preset: Slow Burn
+Context tokens: 18,420
+Memories retrieved: 12
+Lore entries retrieved: 4
+Characters retrieved: 3
+Generation completed
+Memory extraction started
+Memory candidates: 3
+Memories committed: 2
+
+Do not create invasive analytics.
+
+These are local developer logs.
+
+⸻
+
+74. PERFORMANCE
+
+Nexus should remain responsive with:
+
+* thousands of memories
+* hundreds of characters
+* large lorebooks
+* long conversations
+* many branches
+
+Avoid loading the entire database into React state.
+
+Use efficient queries and indexing.
+
+⸻
+
+75. SEARCH
+
+Search should work across:
+
+* stories
+* characters
+* personas
+* lore
+* memories
+* chats
+
+Eventually semantic search can be added.
+
+Do not make semantic search mandatory if simple indexed search is sufficient.
+
+⸻
+
+76. MOBILE / RESPONSIVE
+
+The application should work well on desktop and mobile browsers.
+
+The chat should be particularly usable on mobile.
+
+Do not design desktop-only controls that become unusable on a phone.
+
+⸻
+
+77. VISUAL DESIGN
+
+Do not blindly copy another application’s UI.
+
+Build a coherent Nexus identity.
+
+Prioritize:
+
+* readability
+* conversation space
+* clear hierarchy
+* unobtrusive controls
+* easy access to memory/settings
+* responsive layouts
+
+The chat is the primary experience.
+
+⸻
+
+78. WHAT NOT TO COPY FROM CHUNGUSHUB
+
+ChungusHub is useful as architectural inspiration, especially for:
+
+* local-first architecture
+* branching conversations
+* provider abstraction
+* SQLite
+* WebSockets
+* prompt systems
+* lore retrieval
+* persistent generation
+* server/client separation
+
+But do NOT turn Nexus into ChungusHub.
+
+Nexus does not need to reproduce every feature.
+
+In particular, do not prioritize:
+
+* assistant workspace systems
+* extension marketplaces
+* complicated extension permissions
+* unnecessary group-chat complexity
+* unnecessary visual novel modes
+* unnecessary platform features
+
+The goal is a cleaner, story-centric system.
+
+⸻
+
+79. WHAT NEXUS SHOULD FEEL LIKE
+
+The desired experience is:
+
+I open Nexus.
+
+I select:
+
+My Hero Academia
+
+Nexus already knows:
+
+Characters
+Persona
+World
+Lore
+Relationships
+Memories
+Story state
+
+I choose:
+
+Slow Burn
+
+I start chatting.
+
+During the story:
+
+New character appears
+        ↓
+Nexus detects them
+Important event happens
+        ↓
+Nexus remembers it
+Relationship changes
+        ↓
+Nexus updates relationship state
+Important secret appears
+        ↓
+Nexus tracks who knows it
+Old relevant event becomes important
+        ↓
+Nexus retrieves the memory
+Lore becomes relevant
+        ↓
+Nexus retrieves the lore
+
+I should not have to manually manage any of this.
+
+⸻
+
+80. THE CENTRAL PRODUCT PRINCIPLE
+
+The entire application should be designed around this sentence:
+
+Nexus should remember the story so the user can focus on living the story.
+
+Everything should support that.
+
+⸻
+
+81. IMPLEMENTATION EXPECTATIONS
+
+When implementing:
+
+1. Inspect existing code first.
+2. Preserve working functionality.
+3. Refactor rather than duplicate.
+4. Keep TypeScript strongly typed.
+5. Keep modules logically separated.
+6. Write tests for important logic.
+7. Do not create fake implementations merely to make the UI appear finished.
+8. Do not leave major systems as TODO placeholders.
+9. Make actual end-to-end flows work.
+10. Keep the application runnable after each major phase.
+
+When you encounter an architectural decision, prefer the solution that keeps Nexus:
+
+local
+simple
+integrated
+maintainable
+extensible
+
+⸻
+
+82. BEFORE CODING
+
+First inspect the entire repository.
+
+Identify:
+
+Current frontend architecture
+Current backend architecture
+Current persistence
+Current routes
+Current components
+Current AI services
+Current memory system
+Current prompt system
+Current chat system
+Current import/export
+Current tests
+
+Then create an implementation plan based on the actual codebase.
+
+Do NOT blindly assume the existing implementation matches this specification.
+
+⸻
+
+83. AFTER EACH MAJOR PHASE
+
+Run:
+
+* TypeScript checks
+* build
+* relevant tests
+* Playwright tests where applicable
+
+Fix errors before moving forward.
+
+Do not accumulate a huge number of broken changes.
+
+⸻
+
+84. FINAL ACCEPTANCE CRITERIA
+
+Nexus should eventually allow me to do this:
+
+Create a Story
+
+My Hero Academia
+
+Add
+
+Reiko
+Bakugo
+
+Add
+
+My Hero Academia World
+
+Select
+
+Slow Burn
+
+Start chatting
+
+Then:
+
+* the story remembers previous events
+* important events become memories automatically
+* irrelevant details do not pollute memory
+* unknown characters are discovered automatically
+* discovered characters gain knowledge gradually
+* relationships evolve
+* secrets can be tracked
+* lore activates when relevant
+* relevant memories are retrieved automatically
+* branches preserve history
+* regeneration does not destroy old responses
+* the user can change generation style from the chat
+* temperature is easily accessible
+* memory settings are easily accessible
+* advanced configuration remains available in Settings
+* the user does not need to manually assemble prompts
+* the user does not need to manually manage context
+
+That is the target.
+
+⸻
+
+85. MOST IMPORTANT REQUIREMENT
+
+Do not interpret this as a request to merely add a few UI features.
+
+This is an architectural evolution of Nexus.
+
+The ultimate goal is to create:
+
+A STORY ENGINE
+
+rather than:
+
+A CHAT UI WITH CHARACTER CARDS
+
+The difference is fundamental.
+
+The chat is only the interface.
+
+The real product is the system underneath it:
+
+Story
++
+Characters
++
+World
++
+Relationships
++
+Memory
++
+Context
++
+Continuity
++
+Prompting
++
+LLM
+
+Build Nexus around that principle.
+
+Start by inspecting the existing repository and mapping what already exists against this specification. Then implement the system incrementally, preserving useful existing functionality while restructuring it where necessary.

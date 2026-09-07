@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>FullScreen</key>
+      <true/>
+      <key>Icon</key>
+      <data>
+iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAHZElEQVR4nOzd+0/V
+dRzH8bfgSTBcmChuyVIM3fKyTMv0h6ZLS81bmhrzFnnBG4rz6EHBIx5BQWiSeL9E
+3maal9S8lDqtNjMn6tLckrwN3OJmMDFA8ZwOzqYQbziH84Hj+bxfj/EPwJ5wzvl8
+P+83Df0a+xJAVbwIgIE4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4
+gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4gIU4
+gIU4gIU4gIU4gNWQ3CGkbXDz5gFUN6xW69lz58lNglq9Yv8ipXJz8zKu36B65544
+ZkwLHzViGNWZMWGTTpw8Te5g/76Ms2eSUru+2TdrjonqnZ4vKxZztJcXXjFdpedP
+MLhN63GjQwlco+2vl2lupJ/fiwQu0DaOpv7+kRHTCFyg8wtz+MQw5R8cRNE5DoPB
+EBM1l6C2NH9LP2Twh506vk5QK/p/3lu2JJagVvSPo1vXLoMHDSBwnoiTooVRcxs2
+dM9ZsEcTEUdQUKvwiZ8SOEnKGXNkxHT/l14icIaUOJo08bOfmRI4Q9DTKfvTljat
+XyVwmKA4vL297U9rCRwm67l23z69e77zNoFjxF16WBYX26BBAwIHiIujfbuQT0YO
+J3CAxOtS0Sajr48PQU0kxhEQ0Gz61MkENRF60XLG1MmBLVoQVEtoHD4+jRaY5hBU
+S+4V7VEjhuGqR/VE39/HVY/qiY6jW9cu/fr2IWBIn/wxx5gw/sSR/nMJbtM6bPwY
+gqrgl4aMsyMw/lQlxFE+/mSMVDz6rAfEUW5C2FiMP/0f4ihnMBjMMVEEFSGOJwYN
+6Nf1zTcInoE4nsKZWCWI46nOnToMGzqI4D+IowJztKlRoxcIHkMcFbQMDJwy6TOC
+xxBHZbMipjVr9jKBu+Kw2Wyk2qnTP5EKjX195xkx/lROn78c6RcvHTh4mFQYGzqq
+XchrJJ5WLytxCUkPHz4kl9mf0y5eOJ/Ec08cdTQ5kpl1Z/2mNFKhd693Mf6k2xvS
+lNQ1fxcUkAoYf9ItjqKi+4lJKaRC+3YhY0JHkmAafpTdumPnjZu3SAWTcbbk8ScN
+47BarWZLPKkQENBsluBNt3oegp04efrML7+SCvYDU7HjT9qekEbFxNr/hJDLfHwa
+maPnkUjaxnEt48+vd+8lFYZ/NETm+JPOz1biE5P/KS4mFWRe9dA5jvz8u6vXbiAV
+unXtMrD/BySM5k9lV63d8Fd2NqmwKCZK2qZbzeMoLX2wNPFzUiEoqNWEsLEkif73
+OXbv2f/b5d9JBWPkTFGbbkVc9pm/MJZUaNLEzzg7gsQQEUf6hUtHfzhOKoSNHyNn
+062Ua4KWuMRHjx6Ry7y9vc0xbvgXr24hJY6bt26nbdlOKvR/v6+Q8SdBF4yTV6Te
+u1dEKgg5ExMUR0FhYXLKSlKhc6cOI4YPJd3JGk3YnLYtMzOLVIiOMmo//iQrjrKy
+ssVxCaRCy8DA6VMmkdbEDTV9d/T78+kXSYUZ08L1Hn+SOPGm6kyssa/vgnk6b7qV
+GMflK1f37j9AKoSO+ljj8Sehs7KW+OUlJaXkMi8vr4S4WNKU0Diyc3LWbfySVOjZ
+o3uf93qRjuRO2X+RuiYvL59UsJijtdx0KzeO4pKSxOQVpEJwm9bjRoeSdkTv59i+
+c/cf1zJIBdPcSP023YqOw2azLVqyjFRo6u8fqd34k/TNPqd//FnV+FP4xDDNNt1i
+7RNFLVxMKhgMhmiTkTSCOOjatYwtO3aSCkOHDOxYB+NPdbElyxGIo9zy5BRV4091
+8d993LUmBHGUy8+/az/2IKgIcTxhPzBVNf6kDcTxRGnpA0t8IsEzEMdT+749pGr8
+SQ+IowJVVz30gDgqSL9w6dCRYwSPIY7KLHEJSjbdagBxVJaZdWdz2jYCxFGl5JSV
+qjbdejTEUYWiovvJK1JJPMRRtbQt21VtuvVciKNqVqvVEif9TAxxsI4dP6Fq/MlD
+IY7qCD8TQxzVuXzl6u49+0kqxFGD+IRkJeNPnghx1CA7J2f1uo0kEuKo2ao161WN
+P3kWxFGz4pKSpcvVbLr1LIjDITt37VE1/uRBEIdDbDbb/JhYEgZxOOrM2XPHT5wi
+SRCHE8yWeCWbbj0F4nDCzVu3tyoaf/IIiMM5iUkpqjbdPv8Qh3MKCgtTUleTDIjD
+aes3faVq0+1zDnE4raysbElCEgmAOGrj4KEjEsafEEctSbjqgThqKf3CpQMHD5PW
+EEftxSUk6T3+hDhqLzPrzvpNaaQvxOGSlNQ1Go8/IQ6XFBXdt5+ZkqYQh6vsT1t0
+HX9CHK6yWq32p7WkowZ+jX2p3oW0DW7ePICUsr89tH+Rm/To/lbd7fzLzc3LuH6D
+6p174gCPgJcVYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEO
+YCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEOYCEO
+YCEOYCEOYP0LAAD//wmiE4wAAAAGSURBVAMAAi3SGxWVGCcAAAAASUVORK5CYII=
+      </data>
+      <key>IsRemovable</key>
+      <true/>
+      <key>Label</key>
+      <string>Nexus</string>
+      <key>PayloadDescription</key>
+      <string>Adds Nexus to the Home Screen.</string>
+      <key>PayloadDisplayName</key>
+      <string>Nexus</string>
+      <key>PayloadIdentifier</key>
+      <string>app.nexus.webclip</string>
+      <key>PayloadType</key>
+      <string>com.apple.webClip.managed</string>
+      <key>PayloadUUID</key>
+      <string>2c8f1a6e-4b90-4d3c-a7e5-1d9b6c4f0823</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>Precomposed</key>
+      <true/>
+      <key>URL</key>
+      <string>https://ember-tavern.grok.me/</string>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>Adds a Nexus icon to your Home Screen. Remove it any time in Settings.</string>
+  <key>PayloadDisplayName</key>
+  <string>Nexus</string>
+  <key>PayloadIdentifier</key>
+  <string>app.nexus.profile</string>
+  <key>PayloadOrganization</key>
+  <string>Nexus</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>9e4b7c2a-1d5f-4a88-b3c1-0f6e8a2d9c71</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>

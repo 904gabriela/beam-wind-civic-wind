@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Nexus",
+      "hasCanvas": false,
+      "bodyTextLen": 1062,
+      "bodyTextHash": "6c3976fdb2cd7241b19906783c9b78aa979da4889e2f270e03962fcc09ebec7b",
+      "bodyTextPrefix": "For you Discover Continue All chats Last Call at The Ember The C",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Nexus",
+      "hasCanvas": false,
+      "bodyTextLen": 1060,
+      "bodyTextHash": "fefd0f6a788ff499d2df43a6e64e0fd1d4652710ef4203e5ecf42296410fbb9a",
+      "bodyTextPrefix": "For you Discover Continue All chats Last Call at The Ember The C",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
